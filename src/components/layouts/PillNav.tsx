@@ -1,6 +1,7 @@
 'use client'
+import { usePathname } from 'next/navigation';
 import React, { useEffect, useRef, useState } from 'react';
-import { Link } from 'react-router-dom';
+import Link from 'next/link';
 import { gsap } from 'gsap';
 
 export type PillNavItem = {
@@ -38,6 +39,7 @@ const PillNav: React.FC<PillNavProps> = ({
   onMobileMenuClick,
   initialLoadAnimation = true
 }) => {
+  const pathname = usePathname();
   const resolvedPillTextColor = pillTextColor ?? baseColor;
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const circleRefs = useRef<Array<HTMLSpanElement | null>>([]);
@@ -248,7 +250,7 @@ const PillNav: React.FC<PillNavProps> = ({
   } as React.CSSProperties;
 
   return (
-    <div className="absolute top-[1em] z-[1000] w-full left-0 md:w-auto md:left-auto">
+    <div className="fixed top-[1em] z-[1000] w-screen left-0 flex justify-center items-center">
       <nav
         className={`w-full md:w-max flex items-center justify-between md:justify-start box-border px-4 md:px-0 ${className}`}
         aria-label="Primary"
@@ -256,7 +258,7 @@ const PillNav: React.FC<PillNavProps> = ({
       >
         {isRouterLink(items?.[0]?.href) ? (
           <Link
-            to={items[0].href}
+            href={items[0].href}
             aria-label="Home"
             onMouseEnter={handleLogoEnter}
             role="menuitem"
@@ -301,11 +303,11 @@ const PillNav: React.FC<PillNavProps> = ({
         >
           <ul
             role="menubar"
-            className="list-none flex items-stretch m-0 p-[3px] h-full"
+            className="list-none flex space-x-1 items-stretch m-0 p-[3px] h-full"
             style={{ gap: 'var(--pill-gap)' }}
           >
             {items.map((item, i) => {
-              const isActive = activeHref === item.href;
+              const isActive = (activeHref || pathname) === item.href;
 
               const pillStyle: React.CSSProperties = {
                 background: 'var(--pill-bg, #fff)',
@@ -363,7 +365,7 @@ const PillNav: React.FC<PillNavProps> = ({
                   {isRouterLink(item.href) ? (
                     <Link
                       role="menuitem"
-                      to={item.href}
+                      href={item.href}
                       className={basePillClasses}
                       style={pillStyle}
                       aria-label={item.ariaLabel || item.label}
@@ -444,7 +446,7 @@ const PillNav: React.FC<PillNavProps> = ({
               <li key={item.href}>
                 {isRouterLink(item.href) ? (
                   <Link
-                    to={item.href}
+                    href={item.href}
                     className={linkClasses}
                     style={defaultStyle}
                     onMouseEnter={hoverIn}

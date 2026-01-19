@@ -7,11 +7,11 @@
   --background: #00266a;
   --foreground: oklch(0.9603 0.0102 48.6219);
   --card: oklch(0.9603 0.0102 48.6219);
-  --card-foreground: oklch(0.4814 0.1922 30.1556);
+  --card-foreground: #b10d00;
   --popover: oklch(0.4815 0.1976 29.2339);
   --popover-foreground: oklch(0.9850 0 0);
   --primary: oklch(0.6787 0.2134 39.9009);
-  --primary-foreground: oklch(0.9603 0.0102 48.6219);
+  --primary-foreground: #f8f0ec;
   --secondary: oklch(0.5048 0.2048 25.9890);
   --secondary-foreground: oklch(0.9850 0 0);
   --muted: oklch(0.9603 0.0102 48.6219);

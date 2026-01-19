@@ -37,25 +37,23 @@ export default function RootLayout({
             hoverFillColor="#b10d00"
           />
         </div>
-        <PillNav
-          logo="/next.svg"
-          logoAlt="Company Logo"
-          items={[
-            { label: 'Home', href: '/' },
-            { label: 'About', href: '/about' },
-            { label: 'Services', href: '/services' },
-            { label: 'Contact', href: '/contact' }
-          ]}
-          activeHref="/"
-          className="custom-nav"
-          ease="power2.easeOut"
-          baseColor="#000000"
-          pillColor="#ffffff"
-          hoveredPillTextColor="#ffffff"
-          pillTextColor="#000000"
-          initialLoadAnimation={false}
-        />
-        <main className="w-screen overflow-x-hidden relative bg-linear-to-b from-background/70 to-[#647DD3]/30">
+        <main className="w-screen overflow-x-hidden relative bg-linear-to-b from-background/50 to-[#647DD3]/25">
+          <PillNav
+            logo="/next.svg"
+            logoAlt="Company Logo"
+            items={[
+              { label: 'Home', href: '/' },
+              { label: 'About', href: '/about' },
+              { label: 'Register', href: '/register' }
+            ]}
+            className=""
+            ease="power2.easeOut"
+            baseColor="#fe5900"
+            pillColor="#f8f0ec"
+            hoveredPillTextColor="#ffffff"
+            pillTextColor="#b10d00"
+            initialLoadAnimation={true}
+          />
           {children}
         </main>
       </body>
