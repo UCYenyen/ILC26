@@ -32,7 +32,7 @@ export default function Footer() {
                             <Link href="#" className="p-2 rounded-full bg-secondary/30 hover:bg-primary hover:text-primary-foreground transition-all duration-300">
                                 <Linkedin size={20} strokeWidth={1.5} />
                             </Link>
-                            <Link href="#" className="p-2 rounded-full bg-secondary/80 hover:bg-primary hover:text-primary-foreground transition-all duration-300">
+                            <Link href="#" className="p-2 rounded-full bg-secondary/30 hover:bg-primary hover:text-primary-foreground transition-all duration-300">
                                 <Facebook size={20} strokeWidth={1.5} />
                             </Link>
                         </div>
