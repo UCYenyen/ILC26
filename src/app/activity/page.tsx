@@ -73,7 +73,7 @@ export default function ActivityPage() {
                   : "opacity-100 scale-100"
               }`}
             >
-              <Card className="shadow-lg border-border/60 bg-card/95 backdrop-blur-sm">
+              <Card className="shadow-lg border-border/60 bg-card/95 backdrop-blur-sm overflow-hidden">
                 <CardHeader className="pb-2">
                   {/* Day indicator dots */}
                   <div className="flex items-center justify-center gap-2 mb-4">
@@ -108,7 +108,9 @@ export default function ActivityPage() {
                   </CardTitle>
                 </CardHeader>
 
-                <Separator className="mx-6" />
+                <div className="px-6">
+                  <Separator />
+                </div>
 
                 <CardContent className="pt-6 grid gap-4">
                   {/* Date */}
