@@ -34,6 +34,7 @@ export default function RootLayout({
           items={[
             { label: 'Home', href: '/' },
             { label: 'Seminar', href: '/seminar' },
+            { label: 'Activity', href: '/activity' },
           ]}
           className=""
           ease="power2.easeOut"
