@@ -131,10 +131,10 @@ export default function ActivityPage() {
                     }`}
                   >
                     <div className="bg-muted/60 p-4 rounded-lg border border-border/40">
-                      <div className="flex items-start gap-2 mb-2">
-                        <Info className="w-4 h-4 text-primary mt-0.5 shrink-0" />
+                      <div className="flex items-center gap-2 mb-2">
+                        <Info className="w-4 h-4 text-primary shrink-0" />
                         <span className="text-xs font-semibold text-primary uppercase tracking-wider">
-                          Further Information
+                          Description
                         </span>
                       </div>
                       <p className="text-sm leading-relaxed text-muted-foreground">
@@ -149,7 +149,7 @@ export default function ActivityPage() {
                     className="w-full mt-2 text-primary hover:text-primary hover:bg-primary/10 cursor-pointer"
                     onClick={() => setShowDetails((prev) => !prev)}
                   >
-                    {showDetails ? "Hide Details" : "View Details"}
+                    {showDetails ? "Hide Information" : "More Information"}
                   </Button>
                 </CardContent>
               </Card>

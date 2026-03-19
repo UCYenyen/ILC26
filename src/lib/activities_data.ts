@@ -28,15 +28,15 @@ export const activities: Activity[] = [
   {
     day: 3,
     title: "TBA",
-    date: "2 May 2026",
-    description: "Details for Day 3 will be announced soon. Stay tuned!",
+    date: "TBA",
+    description: "Details for Day 3 will be announced soon.",
     details: "To be announced.",
   },
   {
     day: 4,
     title: "TBA",
-    date: "3 May 2026",
-    description: "Details for Day 4 will be announced soon. Stay tuned!",
+    date: "TBA",
+    description: "Details for Day 4 will be announced soon.",
     details: "To be announced.",
   },
 ];
