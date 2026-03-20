@@ -33,7 +33,6 @@ export default function RootLayout({
           logoAlt="Company Logo"
           items={[
             { label: 'Home', href: '/' },
-            { label: 'Seminar', href: '/seminar' },
             { label: 'Activity', href: '/activity' },
           ]}
           className=""
