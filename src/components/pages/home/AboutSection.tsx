@@ -3,15 +3,17 @@
 import Link from 'next/link';
 import { ArrowRight, Mic2 } from 'lucide-react';
 import { Button } from '@/components/shadcn/ui/button';
-import { Card, CardContent } from '@/components/shadcn/ui/card';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/shadcn/ui/card';
 
 const keynoteData = [
   {
+    id: "01",
     day: "Day 2 Seminar",
     name: "Yeo Lay",
     role: "Dean of Student Success Centre",
   },
   {
+    id: "02",
     day: "Day 3 Seminar",
     name: "Edy Sulistyo",
     role: "CEO of everywhere.id",
@@ -88,23 +90,37 @@ export default function AboutSection() {
                 {keynoteData.map((speaker, index) => (
                     <Card
                         key={index}
-                        className="group bg-card border-border/60 hover:border-primary/50 transition-all duration-300 hover:shadow-lg hover:-translate-y-1 overflow-hidden"
+                        className="group relative h-full min-h-[200px] transition-all duration-300 hover:shadow-lg hover:-translate-y-1 overflow-hidden"
                     >
-                        <CardContent className="p-8 flex flex-col gap-4">
-                            <div className="flex items-center gap-4">
-                                <div className="p-3 bg-primary/10 rounded-xl text-primary">
-                                    <Mic2 size={28} strokeWidth={1.5} />
+                        {/* Large faint background number */}
+                        <span className="absolute -top-4 -right-4 text-9xl font-bold z-0 select-none text-primary/10 transition-colors duration-300">
+                            {speaker.id}
+                        </span>
+
+                        <div className="relative z-10 flex flex-col justify-between h-full">
+                            <CardHeader>
+                                <div className="flex items-center gap-4 mb-4">
+                                    <div className="w-12 h-12 rounded-lg flex items-center justify-center bg-primary transition-colors duration-500">
+                                        <Mic2 className="w-6 h-6 text-foreground group-hover:text-primary-foreground transition-colors duration-500" strokeWidth={2} />
+                                    </div>
+                                    <span className="text-xs font-mono font-semibold text-primary bg-primary/10 px-3 py-1.5 rounded-full uppercase tracking-widest">
+                                        {speaker.day}
+                                    </span>
                                 </div>
-                                <span className="text-xs font-mono text-foreground/60 border border-border px-3 py-1 rounded-full uppercase tracking-widest">
-                                    {speaker.day}
-                                </span>
-                            </div>
-                            <div>
-                                <h3 className="text-3xl md:text-4xl text-primary font-bold tracking-tighter">{speaker.name}</h3>
-                                <p className="text-base text-muted-foreground mt-1">{speaker.role}</p>
-                            </div>
-                            <div className="w-12 h-0.5 bg-border group-hover:w-full group-hover:bg-primary transition-all duration-500 ease-out" />
-                        </CardContent>
+
+                                <CardTitle className="text-2xl md:text-3xl font-bold tracking-tight text-primary transition-colors duration-300">
+                                    {speaker.name}
+                                </CardTitle>
+                            </CardHeader>
+
+                            <CardContent>
+                                <CardDescription className="text-base leading-relaxed">
+                                    {speaker.role}
+                                </CardDescription>
+
+                                <div className="mt-6 w-12 h-0.5 bg-border group-hover:w-full group-hover:bg-primary transition-all duration-500 ease-out" />
+                            </CardContent>
+                        </div>
                     </Card>
                 ))}
              </div>
