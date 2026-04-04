@@ -13,7 +13,7 @@ export default function Home() {
     <main className="relative w-full bg-background text-foreground selection:bg-[#647DD3]/20">
       <HeroSection />
       <AboutSection />
-      <ThemeSection />
+      {/* <ThemeSection /> */}
     </main>
   );
 }

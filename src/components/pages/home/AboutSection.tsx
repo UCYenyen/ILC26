@@ -1,8 +1,21 @@
 'use client'
 
-import { ArrowRight, CheckCircle2, GraduationCap, BookOpen, Handshake, Globe } from 'lucide-react';
+import { ArrowRight, Mic2 } from 'lucide-react';
 import { Button } from '@/components/shadcn/ui/button';
 import { Card, CardContent } from '@/components/shadcn/ui/card';
+
+const keynoteData = [
+  {
+    day: "Day 2 Seminar",
+    name: "Yeo Lay",
+    role: "Dean of Student Success Centre",
+  },
+  {
+    day: "Day 3 Seminar",
+    name: "Edy Sulistyo",
+    role: "CEO of everywhere.id",
+  },
+];
 
 export default function AboutSection() {
   return (
@@ -11,7 +24,7 @@ export default function AboutSection() {
         
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24 items-center">
           
-          {/* LEFT COLUMN: Typography & Content */}
+          {/* LEFT COLUMN: About Content */}
           <div className="flex flex-col gap-8 animate-in fade-in slide-in-from-bottom-8 duration-700 delay-100">
             
             {/* Tag / Label */}
@@ -38,20 +51,13 @@ export default function AboutSection() {
               </p>
             </div>
 
-            {/* Feature List */}
-            <ul className="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-2">
-                {[
-                    "Research & Insights Exchange",
-                    "Student Organization Management",
-                    "Leadership Best Practices",
-                    "Global HEI Collaboration"
-                ].map((item, i) => (
-                    <li key={i} className="flex items-center gap-3 text-foreground/80 font-medium">
-                        <CheckCircle2 className="w-5 h-5 text-primary" />
-                        {item}
-                    </li>
-                ))}
-            </ul>
+            {/* Theme Quote */}
+            <div className="mt-2 border-l-2 border-primary/60 pl-6 py-2">
+              <p className="text-xs font-mono tracking-widest text-primary/70 uppercase mb-2">Theme</p>
+              <p className="text-xl md:text-2xl font-bold tracking-tight text-foreground/90 leading-snug">
+                &ldquo;Empowering Global Leaders: Inspiring Change, Driving Impact&rdquo;
+              </p>
+            </div>
 
             {/* CTA Button */}
             <div className="pt-4">
@@ -62,63 +68,42 @@ export default function AboutSection() {
             </div>
           </div>
 
-          {/* RIGHT COLUMN: Stats / Cards Visual */}
+          {/* RIGHT COLUMN: Speaker Highlights */}
           <div className="relative">
              {/* Decorative Blur behind cards */}
              <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[120%] h-[120%] bg-primary/5 blur-[100px] rounded-full pointer-events-none" />
 
-             <div className="grid grid-cols-2 gap-6 relative z-10">
-                {/* Card 1 */}
-                <Card className="col-span-1 bg-background/50 border-border/60 hover:border-primary/50 transition-colors duration-300">
-                    <CardContent className="p-8 flex flex-col gap-4 items-start">
-                        <div className="p-3 bg-primary/10 rounded-xl text-primary">
-                            <GraduationCap size={32} strokeWidth={1.5} />
-                        </div>
-                        <div>
-                            <h3 className="text-4xl text-primary font-bold tracking-tighter">10+</h3>
-                            <p className="text-sm text-muted-foreground mt-1">Participating HEIs</p>
-                        </div>
-                    </CardContent>
-                </Card>
+             <div className="flex flex-col gap-6 relative z-10">
+                {/* Section Label */}
+                <div className="flex items-center gap-4 mb-2">
+                   <span className="h-px w-12 bg-primary/60"></span>
+                   <span className="text-sm font-mono tracking-widest text-primary/80 uppercase">
+                      Keynote Speakers
+                   </span>
+                </div>
 
-                {/* Card 2 */}
-                <Card className="col-span-1 lg:mt-12 bg-background/50 border-border/60 hover:border-primary/50 transition-colors duration-300">
-                    <CardContent className="p-8 flex flex-col gap-4 items-start">
-                        <div className="p-3 bg-primary/10 rounded-xl text-primary">
-                            <Handshake size={32} strokeWidth={1.5} />
-                        </div>
-                        <div>
-                            <h3 className="text-4xl text-primary font-bold tracking-tighter">500+</h3>
-                            <p className="text-sm text-muted-foreground mt-1">Delegates & Scholars</p>
-                        </div>
-                    </CardContent>
-                </Card>
-
-                {/* Card 3 */}
-                <Card className="col-span-1 bg-background/50 border-border/60 hover:border-primary/50 transition-colors duration-300">
-                    <CardContent className="p-8 flex flex-col gap-4 items-start">
-                        <div className="p-3 bg-primary/10 rounded-xl text-primary">
-                            <Globe size={32} strokeWidth={1.5} />
-                        </div>
-                        <div>
-                            <h3 className="text-4xl font-bold text-primary tracking-tighter">20+</h3>
-                            <p className="text-sm text-muted-foreground mt-1">Countries Represented</p>
-                        </div>
-                    </CardContent>
-                </Card>
-
-                {/* Card 4 */}
-                <Card className="col-span-1 lg:mt-12 bg-background/50 border-border/60 hover:border-primary/50 transition-colors duration-300">
-                     <CardContent className="p-8 flex flex-col gap-4 items-start">
-                        <div className="p-3 bg-primary/10 rounded-xl text-primary">
-                            <BookOpen size={32} strokeWidth={1.5} />
-                        </div>
-                        <div>
-                            <h3 className="text-4xl font-bold text-primary tracking-tighter">30+</h3>
-                            <p className="text-sm text-muted-foreground mt-1">Research Presentations</p>
-                        </div>
-                    </CardContent>
-                </Card>
+                {keynoteData.map((speaker, index) => (
+                    <Card
+                        key={index}
+                        className="group bg-background/50 border-border/60 hover:border-primary/50 transition-all duration-300 hover:shadow-lg hover:-translate-y-1 overflow-hidden"
+                    >
+                        <CardContent className="p-8 flex flex-col gap-4">
+                            <div className="flex items-center gap-4">
+                                <div className="p-3 bg-primary/10 rounded-xl text-primary">
+                                    <Mic2 size={28} strokeWidth={1.5} />
+                                </div>
+                                <span className="text-xs font-mono text-foreground/60 border border-border px-3 py-1 rounded-full uppercase tracking-widest">
+                                    {speaker.day}
+                                </span>
+                            </div>
+                            <div>
+                                <h3 className="text-3xl md:text-4xl text-primary font-bold tracking-tighter">{speaker.name}</h3>
+                                <p className="text-base text-muted-foreground mt-1">{speaker.role}</p>
+                            </div>
+                            <div className="w-12 h-0.5 bg-border group-hover:w-full group-hover:bg-primary transition-all duration-500 ease-out" />
+                        </CardContent>
+                    </Card>
+                ))}
              </div>
           </div>
 
