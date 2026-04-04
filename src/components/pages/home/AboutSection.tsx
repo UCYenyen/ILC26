@@ -1,5 +1,6 @@
 'use client'
 
+import Link from 'next/link';
 import { ArrowRight, Mic2 } from 'lucide-react';
 import { Button } from '@/components/shadcn/ui/button';
 import { Card, CardContent } from '@/components/shadcn/ui/card';
@@ -22,10 +23,10 @@ export default function AboutSection() {
     <section className="relative z-10 py-24 w-full bg-background/80 backdrop-blur-3xl border-t border-border/40 overflow-hidden">
       <div className="container mx-auto px-6 lg:px-12">
         
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24 items-center">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24 items-stretch">
           
           {/* LEFT COLUMN: About Content */}
-          <div className="flex flex-col gap-8 animate-in fade-in slide-in-from-bottom-8 duration-700 delay-100">
+          <div className="flex flex-col gap-8 justify-between animate-in fade-in slide-in-from-bottom-8 duration-700 delay-100">
             
             {/* Tag / Label */}
             <div className="flex items-center gap-4">
@@ -61,19 +62,21 @@ export default function AboutSection() {
 
             {/* CTA Button */}
             <div className="pt-4">
-                <Button size="lg" className="rounded-full px-8 text-base font-semibold group">
-                    Learn More
-                    <ArrowRight className="ml-2 w-4 h-4 transition-transform group-hover:translate-x-1" />
+                <Button size="lg" className="rounded-full px-8 text-base font-semibold group" asChild>
+                    <Link href="/activity">
+                        Learn More
+                        <ArrowRight className="ml-2 w-4 h-4 transition-transform group-hover:translate-x-1" />
+                    </Link>
                 </Button>
             </div>
           </div>
 
           {/* RIGHT COLUMN: Speaker Highlights */}
-          <div className="relative">
+          <div className="relative flex flex-col">
              {/* Decorative Blur behind cards */}
              <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[120%] h-[120%] bg-primary/5 blur-[100px] rounded-full pointer-events-none" />
 
-             <div className="flex flex-col gap-6 relative z-10">
+             <div className="flex flex-col gap-6 relative z-10 flex-1 justify-between">
                 {/* Section Label */}
                 <div className="flex items-center gap-4 mb-2">
                    <span className="h-px w-12 bg-primary/60"></span>
@@ -85,7 +88,7 @@ export default function AboutSection() {
                 {keynoteData.map((speaker, index) => (
                     <Card
                         key={index}
-                        className="group bg-background/50 border-border/60 hover:border-primary/50 transition-all duration-300 hover:shadow-lg hover:-translate-y-1 overflow-hidden"
+                        className="group bg-card border-border/60 hover:border-primary/50 transition-all duration-300 hover:shadow-lg hover:-translate-y-1 overflow-hidden"
                     >
                         <CardContent className="p-8 flex flex-col gap-4">
                             <div className="flex items-center gap-4">

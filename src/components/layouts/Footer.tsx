@@ -47,7 +47,7 @@ export default function Footer() {
                             Navigation
                         </h3>
                         <ul className="space-y-4">
-                            {['Home', 'Seminar'].map((item) => (
+                            {['Home', 'Activity'].map((item) => (
                                 <li key={item}>
                                     <Link href="#" className="text-foreground/40 hover:text-primary transition-colors flex items-center gap-1 group">
                                         {item}

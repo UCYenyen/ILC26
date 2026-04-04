@@ -1,7 +1,7 @@
 'use client'
 
-import { useState, useMemo } from "react";
-import { ChevronLeft, ChevronRight, CalendarDays, Info } from "lucide-react";
+import { useState, useMemo, useRef, useEffect, useCallback } from "react";
+import { ChevronLeft, ChevronRight, CalendarDays, Info, ChevronDown, ChevronsDown } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/shadcn/ui/card";
 import { Button } from "@/components/shadcn/ui/button";
 import { Separator } from "@/components/shadcn/ui/separator";
@@ -12,6 +12,9 @@ export default function ActivityPage() {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [showDetails, setShowDetails] = useState(false);
   const [isTransitioning, setIsTransitioning] = useState(false);
+  const [canScroll, setCanScroll] = useState(false);
+  const [isAtBottom, setIsAtBottom] = useState(false);
+  const scrollRef = useRef<HTMLDivElement>(null);
 
   const groupedDays = useMemo(() => {
     return activities.reduce((acc, curr) => {
@@ -26,6 +29,28 @@ export default function ActivityPage() {
   }, []);
 
   const currentDayInfo = groupedDays[currentIndex];
+
+  const checkScroll = useCallback(() => {
+    const el = scrollRef.current;
+    if (!el) return;
+    const hasOverflow = el.scrollHeight > el.clientHeight + 4;
+    setCanScroll(hasOverflow);
+    const atBottom = el.scrollTop + el.clientHeight >= el.scrollHeight - 8;
+    setIsAtBottom(atBottom);
+  }, []);
+
+  // Re-check scroll state when content changes
+  useEffect(() => {
+    checkScroll();
+  }, [currentIndex, showDetails, checkScroll]);
+
+  // Also check after transition completes (content may reflow)
+  useEffect(() => {
+    if (!isTransitioning) {
+      const timer = setTimeout(checkScroll, 100);
+      return () => clearTimeout(timer);
+    }
+  }, [isTransitioning, checkScroll]);
 
   const navigate = (direction: "prev" | "next") => {
     setIsTransitioning(true);
@@ -83,10 +108,9 @@ export default function ActivityPage() {
                 isTransitioning ? "opacity-0 scale-95" : "opacity-100 scale-100"
               }`}
             >
-              {/* Added max height and flex-col to handle scrolling for longer days */}
               <Card className="shadow-lg border-border/60 bg-card/95 backdrop-blur-sm overflow-hidden flex flex-col h-[55vh]">
                 <CardHeader className="pb-4 shrink-0">
-                  {/* Day indicator dots - mapped to groupedDays instead of activities */}
+                  {/* Day indicator dots */}
                   <div className="flex items-center justify-center gap-2 mb-4">
                     {groupedDays.map((_, i) => (
                       <button
@@ -126,56 +150,82 @@ export default function ActivityPage() {
                   <Separator />
                 </div>
 
-                {/* 4. Map through the events for this specific day */}
-                <CardContent className="pt-6 overflow-y-auto custom scrollbar">
-                  <div className="flex flex-col gap-6">
-                    {currentDayInfo.events.map((event, index) => (
-                      <div key={index} className="flex flex-col gap-3">
-                        <CardTitle className="text-2xl md:text-3xl font-bold tracking-tight text-card-foreground">
-                          {event.title}
-                        </CardTitle>
-                        
-                        <p className="text-sm leading-relaxed text-muted-foreground">
-                          {event.description}
-                        </p>
+                {/* Scrollable content area with scroll indicators */}
+                <div className="relative flex-1 min-h-0">
+                  <CardContent
+                    ref={scrollRef}
+                    className="pt-6 h-full overflow-y-auto custom scrollbar"
+                    onScroll={checkScroll}
+                  >
+                    <div className="flex flex-col gap-6">
+                      {currentDayInfo.events.map((event, index) => (
+                        <div key={index} className="flex flex-col gap-3">
+                          <CardTitle className="text-2xl md:text-3xl font-bold tracking-tight text-card-foreground">
+                            {event.title}
+                          </CardTitle>
+                          
+                          <p className="text-sm leading-relaxed text-muted-foreground">
+                            {event.description}
+                          </p>
 
-                        {/* Expandable Details for each event - FIXED */}
-                        <div
-                          className={`overflow-hidden transition-all duration-500 ease-in-out ${
-                            showDetails ? "max-h-[1000px] opacity-100" : "max-h-0 opacity-0"
-                          }`}
-                        >
-                          <div className="bg-muted/60 p-4 rounded-lg border border-border/40 mt-3">
-                            <div className="flex items-center gap-2 mb-2">
-                              <Info className="w-4 h-4 text-primary shrink-0" />
-                              <span className="text-xs font-semibold text-primary uppercase tracking-wider">
-                                Description
-                              </span>
+                          {/* Expandable Details */}
+                          <div
+                            className={`overflow-hidden transition-all duration-500 ease-in-out ${
+                              showDetails ? "max-h-[1000px] opacity-100" : "max-h-0 opacity-0"
+                            }`}
+                          >
+                            <div className="bg-muted/60 p-4 rounded-lg border border-border/40 mt-3">
+                              <div className="flex items-center gap-2 mb-2">
+                                <Info className="w-4 h-4 text-primary shrink-0" />
+                                <span className="text-xs font-semibold text-primary uppercase tracking-wider">
+                                  Description
+                                </span>
+                              </div>
+                              <p className="text-sm leading-relaxed text-muted-foreground whitespace-pre-wrap">
+                                {event.details}
+                              </p>
                             </div>
-                            {/* whitespace-pre-wrap makes sure linebreaks in your data work properly */}
-                            <p className="text-sm leading-relaxed text-muted-foreground whitespace-pre-wrap">
-                              {event.details}
-                            </p>
                           </div>
-                        </div>
 
-                        {/* Line separator if there are multiple events on this day */}
-                        {index < currentDayInfo.events.length - 1 && (
-                          <Separator className="my-2" />
-                        )}
-                      </div>
-                    ))}
+                          {/* Line separator */}
+                          {index < currentDayInfo.events.length - 1 && (
+                            <Separator className="my-2" />
+                          )}
+                        </div>
+                      ))}
+                    </div>
+                  </CardContent>
+
+                  {/* Bottom fade gradient — only shows when content is scrollable and not at bottom */}
+                  <div
+                    className={`pointer-events-none absolute bottom-0 left-0 right-0 h-16 bg-gradient-to-t from-card/95 to-transparent transition-opacity duration-300 ${
+                      canScroll && !isAtBottom ? "opacity-100" : "opacity-0"
+                    }`}
+                  />
+
+                  {/* Animated scroll indicator */}
+                  <div
+                    className={`pointer-events-none absolute bottom-2 left-1/2 -translate-x-1/2 flex flex-col items-center gap-0.5 transition-all duration-300 ${
+                      canScroll && !isAtBottom ? "opacity-70" : "opacity-0"
+                    }`}
+                  >
+                    <ChevronsDown className="w-4 h-4 text-primary animate-bounce" />
                   </div>
-                </CardContent>
+                </div>
 
                 {/* View Details Button Pinned to Bottom */}
-                <div className="p-4 shrink-0">
+                <div className="p-4 shrink-0 border-t border-border/30">
                   <Button
                     variant="ghost"
-                    className="w-full mt-2 text-primary hover:text-primary hover:bg-primary/10 cursor-pointer"
+                    className="w-full text-primary hover:text-primary hover:bg-primary/10 cursor-pointer gap-2"
                     onClick={() => setShowDetails((prev) => !prev)}
                   >
                     {showDetails ? "Hide Information" : "More Information"}
+                    <ChevronDown
+                      className={`w-4 h-4 transition-transform duration-300 ${
+                        showDetails ? "rotate-180" : "rotate-0"
+                      }`}
+                    />
                   </Button>
                 </div>
               </Card>
@@ -194,12 +244,4 @@ export default function ActivityPage() {
       </section>
     </>
   );
-
-  // <Button
-  //                   variant="ghost"
-  //                   className="w-full mt-2 text-primary hover:text-primary hover:bg-primary/10 cursor-pointer"
-  //                   onClick={() => setShowDetails((prev) => !prev)}
-  //                 >
-  //                   {showDetails ? "Hide Information" : "More Information"}
-  //                 </Button>
 }
