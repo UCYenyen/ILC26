@@ -97,29 +97,28 @@ export default function AboutSection() {
                             {speaker.id}
                         </span>
 
-                        <div className="relative z-10 flex flex-col justify-between h-full">
-                            <CardHeader>
-                                <div className="flex items-center gap-4 mb-4">
-                                    <div className="w-12 h-12 rounded-lg flex items-center justify-center bg-primary transition-colors duration-500">
-                                        <Mic2 className="w-6 h-6 text-foreground group-hover:text-primary-foreground transition-colors duration-500" strokeWidth={2} />
-                                    </div>
-                                    <span className="text-xs font-mono font-semibold text-primary bg-primary/10 px-3 py-1.5 rounded-full uppercase tracking-widest">
-                                        {speaker.day}
-                                    </span>
+                        <div className="relative z-10 flex flex-col h-full p-8 md:p-10">
+                            <div className="flex items-center gap-4 mb-8">
+                                <div className="w-12 h-12 rounded-lg flex items-center justify-center bg-primary transition-colors duration-500">
+                                    <Mic2 className="w-6 h-6 text-foreground group-hover:text-primary-foreground transition-colors duration-500" strokeWidth={2} />
                                 </div>
+                                <span className="text-xs font-mono font-semibold text-primary bg-primary/10 px-3 py-1.5 rounded-full uppercase tracking-widest">
+                                    {speaker.day}
+                                </span>
+                            </div>
 
-                                <CardTitle className="text-2xl md:text-3xl font-bold tracking-tight text-primary transition-colors duration-300">
+                            <div className="flex flex-col gap-2 mb-8">
+                                <CardTitle className="text-3xl md:text-4xl font-bold tracking-tight text-primary transition-colors duration-300">
                                     {speaker.name}
                                 </CardTitle>
-                            </CardHeader>
-
-                            <CardContent>
-                                <CardDescription className="text-base leading-relaxed">
+                                <CardDescription className="text-lg text-muted-foreground leading-relaxed">
                                     {speaker.role}
                                 </CardDescription>
+                            </div>
 
-                                <div className="mt-6 w-12 h-0.5 bg-border group-hover:w-full group-hover:bg-primary transition-all duration-500 ease-out" />
-                            </CardContent>
+                            <div className="mt-auto">
+                                <div className="w-12 h-0.5 bg-border group-hover:w-full group-hover:bg-primary transition-all duration-500 ease-out" />
+                            </div>
                         </div>
                     </Card>
                 ))}
