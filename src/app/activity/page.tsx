@@ -160,7 +160,7 @@ export default function ActivityPage() {
                     <div className="flex flex-col gap-6">
                       {currentDayInfo.events.map((event, index) => (
                         <div key={index} className="flex flex-col gap-3">
-                          <CardTitle className="text-2xl md:text-3xl font-bold tracking-tight text-card-foreground">
+                          <CardTitle className="text-2xl md:text-3xl font-bold tracking-tight text-card-foreground/85  ">
                             {event.title}
                           </CardTitle>
                           
@@ -174,7 +174,7 @@ export default function ActivityPage() {
                               showDetails ? "max-h-[1000px] opacity-100" : "max-h-0 opacity-0"
                             }`}
                           >
-                            <div className="bg-muted/60 p-4 rounded-lg border border-border/40 mt-3">
+                            <div className="bg-muted/75 p-4 rounded-lg border border-border/40 mt-3">
                               <div className="flex items-center gap-2 mb-2">
                                 <Info className="w-4 h-4 text-primary shrink-0" />
                                 <span className="text-xs font-semibold text-primary uppercase tracking-wider">
@@ -217,7 +217,7 @@ export default function ActivityPage() {
                 <div className="p-4 shrink-0 border-t border-border/30">
                   <Button
                     variant="ghost"
-                    className="w-full text-primary hover:text-primary hover:bg-primary/10 cursor-pointer gap-2"
+                    className="w-full text-primary hover:text-primary hover:bg-foreground/25 cursor-pointer gap-2"
                     onClick={() => setShowDetails((prev) => !prev)}
                   >
                     {showDetails ? "Hide Information" : "More Information"}

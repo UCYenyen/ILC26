@@ -46,7 +46,7 @@ export default function RootLayout({
           baseColor="#fe5900"
           pillColor="#f8f0ec"
           hoveredPillTextColor="#ffffff"
-          pillTextColor="#b10d00"
+          pillTextColor="#8E3C12"
           initialLoadAnimation={true}
         />
         {children}
